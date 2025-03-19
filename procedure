@@ -1,0 +1,33 @@
+CREATE PROCEDURE p_listar_pacientes_sarampo
+AS
+BEGIN
+    SELECT codp, nome, idade, cidade, doenca
+    FROM Pacientes
+    WHERE doenca = 'sarampo';
+END;
+
+EXEC p_listar_pacientes_sarampo;
+
+-------------------------------------------------------------
+
+CREATE PROCEDURE p_listar_pacientes_com_doenca (@DoencaParam VARCHAR(255))
+AS
+    SELECT codp, nome, idade, cidade, doenca
+    FROM Pacientes
+    WHERE doenca = @DoencaParam;
+GO
+
+EXEC p_listar_pacientes_com_doenca 'sarampo';
+
+-------------------------------------------------------------
+
+CREATE PROCEDURE p_listar_consultas_por_paciente (@codpParam INT)
+AS
+    SELECT c.codm, m.nome AS medico_nome, p.nome AS paciente_nome, c.data, c.hora
+    FROM Consultas c
+    JOIN Medicos m ON c.codm = m.codm
+    JOIN Pacientes p ON c.codp = p.codp
+    WHERE c.codp = @codpParam;
+GO
+
+EXEC p_listar_consultas_por_paciente 1;
