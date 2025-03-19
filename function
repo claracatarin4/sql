@@ -1,0 +1,31 @@
+CREATE FUNCTION f_calcular_raiz_equacao(@A FLOAT, @B FLOAT)
+RETURNS FLOAT
+AS
+BEGIN
+    IF @A = 0
+    BEGIN
+        RAISERROR('Coeficiente A não pode ser zero.', 16, 1);
+        RETURN NULL;
+    END
+    ELSE
+    BEGIN
+        RETURN -@B / @A;
+    END
+END;
+GO
+
+
+SELECT dbo.f_calcular_raiz_equacao(2, 4) AS Raiz;
+
+--------------------------------------------------------------------------
+
+CREATE FUNCTION f_calcular_cubo (@X FLOAT)
+RETURNS FLOAT
+AS
+    RETURN @X * @X * @X;
+GO
+
+SELECT dbo.f_calcular_cubo(3) AS Cubo;
+
+
+
